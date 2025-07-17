@@ -81,6 +81,10 @@ When deploying ChatWiser backend to production, ensure environment variables are
 
 Contributions are welcome! Please open issues or submit pull requests for improvements and bug fixes.
 
+## Authers
+Rao Huzaifa
+Shahroz Amir
+
 ## License
 
 This project is licensed under the MIT License.
