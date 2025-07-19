@@ -18,7 +18,9 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async register(signupDto: SignupDto): Promise<User> {
+  async register(
+    signupDto: SignupDto,
+  ): Promise<{ message: string; access_token: string }> {
     const { username, email, password } = signupDto;
     const existingUser = await this.userModel.findOne({
       $or: [{ email }, { username }],
@@ -32,7 +34,16 @@ export class AuthService {
       email,
       password: hashedPassword,
     });
-    return user.save();
+    await user.save();
+    const payload = {
+      sub: user._id,
+      username: user.username,
+      email: user.email,
+    };
+    return {
+      message: 'User Registered Successfully',
+      access_token: this.jwtService.sign(payload),
+    };
   }
 
   async validateUser(
